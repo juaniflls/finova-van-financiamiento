@@ -8,10 +8,6 @@
   <strong>Aplicación HTML para evaluar proyectos con CAPM, WACC, VAN, TIR, DSCR, escenarios y presentación ejecutiva.</strong>
 </p>
 
-<p align="center">
-  <img src="docs/assets/branding/finova-social-preview.jpg" alt="Social preview" width="80%" />
-</p>
-
 ## Descripción general
 
 **FINOVA** es una aplicación de evaluación financiera de proyectos diseñada para convertir supuestos de inversión en una decisión clara y trazable.  
