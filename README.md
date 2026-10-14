@@ -1,193 +1,256 @@
-# FINOVA — VAN con Financiamiento
+# FINOVA · Evaluación financiera de proyectos
 
-> Aplicación web interactiva para evaluar proyectos de inversión con financiamiento bancario mediante **Valor Actual Neto (VAN)**, amortización, TIR y análisis de sensibilidad.
+<p align="center">
+  <img src="docs/assets/branding/finova-hero.png" alt="FINOVA hero" width="100%" />
+</p>
 
-![Versión](https://img.shields.io/badge/versión-1.0.0-153b9b)
-![HTML](https://img.shields.io/badge/app-HTML%20autónomo-16b9d4)
-![Jupyter](https://img.shields.io/badge/notebook-Jupyter-f37626)
-![Licencia](https://img.shields.io/badge/licencia-MIT-0e9f6e)
+<p align="center">
+  <strong>Aplicación HTML para evaluar proyectos con CAPM, WACC, VAN, TIR, DSCR, escenarios y presentación ejecutiva.</strong>
+</p>
 
-## ¿Qué es FINOVA?
+<p align="center">
+  <img src="docs/assets/branding/finova-social-preview.jpg" alt="Social preview" width="80%" />
+</p>
 
-**FINOVA** es un pequeño proyecto académico de modelación financiera que convierte un ejercicio tradicional de VAN con financiamiento en una herramienta interactiva de decisión.
+## Descripción general
 
-En lugar de limitarse a una hoja de cálculo, permite modificar los supuestos del proyecto y observar inmediatamente cómo cambian la viabilidad, el servicio de la deuda y los principales indicadores.
+**FINOVA** es una aplicación de evaluación financiera de proyectos diseñada para convertir supuestos de inversión en una decisión clara y trazable.  
+Integra en un solo flujo:
 
-El objetivo es sencillo: **hacer visibles los números antes de tomar una decisión de inversión**.
+- definición del proyecto,
+- proyección de ingresos y gastos,
+- estructura de financiamiento,
+- cálculo del costo de capital,
+- evaluación financiera,
+- análisis de escenarios,
+- y presentación ejecutiva automática.
 
-## Funcionalidades
-
-- Evaluación de **VAN con financiamiento bancario**.
-- Ingresos y gastos editables por año.
-- Inversión inicial y costo de fondos configurables.
-- Porcentaje financiado, tasa bancaria, plazo y periodicidad.
-- Cuota nivelada mediante **sistema francés**.
-- Separación de cada cuota entre **interés y amortización de capital**.
-- TIR del flujo ajustado.
-- Payback descontado.
-- Tabla anual de amortización.
-- Auditoría completa del cálculo del VAN.
-- Matriz de sensibilidad de ingresos y gastos.
-- Puntos de equilibrio:
-  - ingresos;
-  - gastos;
-  - tasa bancaria;
-  - inversión máxima.
-- Recomendaciones cuantitativas para replantear el proyecto.
-- **Modo exposición** con introducción, datos, resultado y conclusiones.
-- Exportación del escenario a JSON.
-- HTML completamente autónomo: no necesita servidor ni dependencias externas.
-
-## Demo rápida
-
-La aplicación principal está en:
-
-```text
-index.html
-```
-
-Puede abrirse directamente en el navegador.
-
-También se conserva una copia descriptiva en:
-
-```text
-app/FINOVA_VAN_Financiamiento_EC300.html
-```
-
-## Caso base incluido
-
-El escenario inicial reproduce un ejercicio académico con:
-
-| Variable | Valor |
-|---|---:|
-| Inversión inicial | ₡5.600.000 |
-| Financiamiento | 60% |
-| Tasa nominal anual del crédito | 14% |
-| Plazo | 4 años |
-| Periodicidad | Mensual |
-| Tasa de descuento / costo de fondos | 20% |
-
-El modelo permite reemplazar completamente estos valores por los de otro proyecto.
-
-## Metodología
-
-La lógica principal implementada es:
-
-```text
-Flujo neto_t = Ingresos_t − Gastos_t
-
-Monto financiado = Inversión × % de financiamiento
-
-Cuota periódica = P × i / [1 − (1+i)^(-n)]
-
-Flujo de caja_t = Flujo neto_t − Cuotas_t
-
-Flujo ajustado_t = Flujo de caja_t + Capital_t
-                  = Flujo neto_t − Interés_t
-
-VP_t = Flujo ajustado_t / (1+k)^t
-
-VAN = − Inversión inicial + Σ VP_t
-```
-
-La aplicación mantiene visible cada componente para facilitar la revisión y la explicación del procedimiento.
-
-La metodología completa se encuentra en [`docs/METODOLOGIA.md`](docs/METODOLOGIA.md).
-
-## Estructura del repositorio
-
-```text
-FINOVA/
-├── index.html
-├── README.md
-├── LICENSE
-├── CITATION.cff
-├── CHANGELOG.md
-├── CONTRIBUTING.md
-├── requirements.txt
-├── .gitignore
-├── app/
-│   └── FINOVA_VAN_Financiamiento_EC300.html
-├── notebooks/
-│   └── FINOVA_VAN_Financiamiento_EC300.ipynb
-├── docs/
-│   ├── METODOLOGIA.md
-│   ├── PUBLICAR_EN_GITHUB.md
-│   └── GITHUB_METADATA.md
-└── .github/
-    └── ISSUE_TEMPLATE/
-```
-
-## Ejecutar el notebook
-
-El notebook documenta la lógica matemática y puede regenerar la aplicación HTML.
-
-### Opción 1 — JupyterLab
-
-```bash
-pip install -r requirements.txt
-jupyter lab
-```
-
-Luego abra:
-
-```text
-notebooks/FINOVA_VAN_Financiamiento_EC300.ipynb
-```
-
-### Opción 2 — Solo usar la app
-
-No necesita instalar nada. Abra `index.html`.
-
-## Publicarlo con GitHub Pages
-
-FINOVA puede funcionar como un sitio estático gratuito.
-
-1. Cree un repositorio en GitHub.
-2. Suba **el contenido de esta carpeta**, no el ZIP como un único archivo.
-3. Abra **Settings → Pages**.
-4. En **Build and deployment**, seleccione **Deploy from a branch**.
-5. Seleccione la rama `main` y la carpeta `/ (root)`.
-6. Guarde.
-
-GitHub publicará automáticamente `index.html`.
-
-Hay una guía más detallada en [`docs/PUBLICAR_EN_GITHUB.md`](docs/PUBLICAR_EN_GITHUB.md).
-
-## Contexto académico
-
-FINOVA nació como una forma de transformar un ejercicio de evaluación de proyectos con financiamiento bancario en una herramienta tecnológica más clara, reproducible e interactiva.
-
-Fue desarrollado en el contexto del curso **EC-300 — Herramientas Tecnológicas Aplicadas**, Universidad Fidélitas.
-
-Este repositorio contiene únicamente el software y documentación propia del proyecto; **no distribuye presentaciones, transcripciones ni materiales privados del curso**.
-
-## Autor
-
-**Juan Ignacio Garbanzo Fallas**  
-Economía · Universidad Fidélitas
-
-## Alcance
-
-FINOVA es una herramienta académica y demostrativa. Un VAN positivo no constituye una garantía de éxito y un VAN negativo no sustituye un análisis empresarial completo.
-
-La calidad del resultado depende de los supuestos utilizados. Para decisiones reales pueden ser necesarios, entre otros:
-
-- impuestos;
-- inflación;
-- capital de trabajo;
-- valor residual;
-- depreciación;
-- riesgo;
-- variabilidad de precios y cantidades;
-- costos regulatorios;
-- escenarios probabilísticos.
-
-## Licencia
-
-Este proyecto se distribuye bajo la licencia **MIT**. Consulte [`LICENSE`](LICENSE).
+La aplicación se entrega como un **archivo HTML independiente**, acompañada por su **notebook de generación** y por un **escenario JSON de ejemplo** listo para abrir desde la interfaz.
 
 ---
 
-**FINOVA**  
-*De la hoja de cálculo a una decisión financiera explicable.*
+## Qué incluye este paquete
+
+- `FINOVA_v4.1_Profesional.html` → aplicación lista para usar.
+- `FINOVA_v4.1_Profesional.ipynb` → notebook fuente.
+- `FINOVA_Ejemplo_Centro_Logistico_Aurora.json` → escenario demostrativo.
+- `docs/assets/branding/` → identidad visual y social preview.
+- `docs/assets/screenshots/` → capturas organizadas del producto.
+- `docs/assets/finova-grid-overview.png` → grilla visual general.
+- `docs/assets/finova-grid-before.png` → grilla del estado inicial.
+- `docs/assets/finova-grid-demo.png` → grilla del caso cargado.
+- `docs/CAMBIOS_FINOVA_v4.md` → registro de cambios.
+- `archive/finova-van-financiamiento-original.zip` → zip original de referencia.
+
+---
+
+## Características principales
+
+### 1) Flujo completo en 7 pasos
+1. **Proyecto**
+2. **Flujos operativos**
+3. **Financiamiento**
+4. **Costo de capital**
+5. **Evaluación**
+6. **Escenarios**
+7. **Presentación**
+
+### 2) Decisión financiera técnicamente sustentada
+FINOVA permite trabajar con:
+
+- **CAPM** para costo de capital propio,
+- **WACC** para estructuras mixtas deuda + patrimonio,
+- **VAN** como criterio de creación de valor,
+- **TIR** como rentabilidad interna,
+- **DSCR** como capacidad de pago de deuda,
+- **escenarios** para sensibilidad del VAN,
+- y una **lectura ejecutiva** automática para exposición.
+
+### 3) Interfaz lista para demostración
+La aplicación está pensada para lucir bien en una presentación, clase, demo o repositorio:
+
+- dashboard visual,
+- matrices coloreadas,
+- composición anual del crédito,
+- vista ejecutiva,
+- y presentación tipo diapositiva dentro de la misma aplicación.
+
+---
+
+## Vista general del producto
+
+### Grilla principal
+<p align="center">
+  <img src="docs/assets/finova-grid-overview.png" alt="Grilla visual de FINOVA" width="100%" />
+</p>
+
+### Estado inicial de la aplicación
+<p align="center">
+  <img src="docs/assets/finova-grid-before.png" alt="Estado inicial de FINOVA" width="100%" />
+</p>
+
+### Caso cargado y resultados
+<p align="center">
+  <img src="docs/assets/finova-grid-demo.png" alt="Caso demo cargado en FINOVA" width="100%" />
+</p>
+
+---
+
+## Estructura de carpetas
+
+```text
+FINOVA-Repo-Final/
+├── FINOVA_v4.1_Profesional.html
+├── FINOVA_v4.1_Profesional.ipynb
+├── FINOVA_Ejemplo_Centro_Logistico_Aurora.json
+├── README.md
+├── .gitignore
+├── archive/
+│   └── finova-van-financiamiento-original.zip
+└── docs/
+    ├── CAMBIOS_FINOVA_v4.md
+    └── assets/
+        ├── branding/
+        │   ├── finova-hero.png
+        │   └── finova-social-preview.jpg
+        ├── finova-grid-before.png
+        ├── finova-grid-demo.png
+        ├── finova-grid-overview.png
+        └── screenshots/
+            ├── before/
+            └── after/
+```
+
+---
+
+## Cómo usar la aplicación
+
+### Opción 1: abrir la app directamente
+1. Descargue o clone el repositorio.
+2. Abra `FINOVA_v4.1_Profesional.html` en su navegador.
+3. Use la aplicación manualmente o cargue un escenario.
+
+### Opción 2: cargar el caso demostrativo
+1. Abra `FINOVA_v4.1_Profesional.html`.
+2. Pulse **Abrir**.
+3. Seleccione `FINOVA_Ejemplo_Centro_Logistico_Aurora.json`.
+4. Revise los pasos 1 a 4.
+5. En **Costo de capital**, pulse **Calcular y evaluar**.
+6. Explore:
+   - **Evaluación**
+   - **Escenarios**
+   - **Presentación**
+
+---
+
+## Escenario de ejemplo incluido
+
+### Expansión Centro Logístico Aurora
+
+Proyecto demostrativo para enseñar el funcionamiento integral de FINOVA.
+
+**Supuestos principales**
+- Inversión inicial: **₡28 000 000**
+- Horizonte: **5 años**
+- Valor residual: **₡4 000 000**
+- Deuda: **45%**
+- Capital propio: **55%**
+- Tasa nominal de deuda: **10.50%**
+- Tasa efectiva anual de deuda: **11.02%**
+- Impuesto: **30%**
+- Ke: **13.18%**
+- WACC: **10.72%**
+
+**Resultados esperados aproximados**
+- **VAN:** ₡3 237 411
+- **TIR:** 14.57%
+- **Spread TIR – WACC:** 3.85 p.p.
+- **DSCR mínimo:** 1.78x
+
+Este caso fue construido para que la interfaz muestre:
+- un resultado viable,
+- una matriz de sensibilidad útil,
+- una estructura de deuda visible,
+- y una presentación ejecutiva completa.
+
+---
+
+## Capturas destacadas
+
+### Dashboard de evaluación
+<p align="center">
+  <img src="docs/assets/screenshots/after/05-evaluacion-dashboard.png" alt="Dashboard de evaluación" width="100%" />
+</p>
+
+### Análisis de escenarios
+<p align="center">
+  <img src="docs/assets/screenshots/after/07-escenarios.png" alt="Análisis de escenarios" width="100%" />
+</p>
+
+### Presentación ejecutiva
+<p align="center">
+  <img src="docs/assets/screenshots/after/13-presentacion-06-conclusion.png" alt="Presentación ejecutiva" width="100%" />
+</p>
+
+---
+
+## Base metodológica
+
+FINOVA utiliza relaciones financieras estándar:
+
+### CAPM
+```text
+Ke = rf + β × ERP + CRP
+```
+
+### WACC
+```text
+WACC = Ke × E / (D + E) + Kd × (1 − T) × D / (D + E)
+```
+
+### VAN
+```text
+VAN = -Inversión inicial + Σ Flujo_t / (1 + tasa)^t
+```
+
+### Cuota nivelada
+```text
+Cuota = P × i / (1 - (1 + i)^(-n))
+```
+
+### DSCR
+```text
+DSCR = Flujo operativo / Servicio de deuda
+```
+
+---
+
+## Recomendación para GitHub
+
+Si va a publicarlo como repositorio, la recomendación es:
+
+- usar `docs/assets/branding/finova-social-preview.jpg` como **social preview**;
+- mantener `docs/assets/branding/finova-hero.png` como imagen principal del README;
+- y conservar la grilla `docs/assets/finova-grid-overview.png` como resumen visual del producto.
+
+---
+
+## Nota
+
+FINOVA es una herramienta de evaluación financiera de proyectos.  
+CAPM, WACC, VAN, TIR, DSCR y escenarios dependen de los supuestos ingresados.  
+La aplicación no reemplaza una revisión tributaria, contable, legal, de mercado o de riesgo especializada.
+
+---
+
+## Autoría del paquete
+
+Paquete preparado para publicación y actualización del repositorio de **FINOVA** con:
+
+- aplicación final,
+- notebook,
+- escenario demo,
+- identidad visual,
+- capturas organizadas,
+- documentación,
+- y zip listo para subir a GitHub.
